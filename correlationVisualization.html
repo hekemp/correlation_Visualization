@@ -4,8 +4,43 @@
         <meta charset="utf-8">
         <title>Correlation Visualization</title>
 
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+
+        <script src="js/multivariate-normal.min.js"></script>
+        <script src="js/graphing.js"></script>
+
     </head>
     <body>
+
+      <h1><center>Illustrating Correlation in Data</center></h1>
+      <div id ="leftPage" style="width: 48%; float: left; overflow: auto; position: relative; background: #E8E8E8; margin-left: 2%; margin-right: 2%; margin-top: 30px; padding:10px 20px;">
+        <h3> Correlation</h3>
+        <div id="slider"></div>
+
+        <br/>
+
+        <h3> Number of Observations</h3>
+        <center>
+        <div id="sizeButtons">
+          <form action="">
+            <input type="Radio" name="sampleSize" value="10" onclick=setSampleSize(10)>10
+            <input type="Radio" name="sampleSize" value="25" onclick=setSampleSize(25)>25
+            <input type="Radio" name="sampleSize" value="50" onclick=setSampleSize(50) checked="checked">50
+            <input type="Radio" name="sampleSize" value="100" onclick=setSampleSize(100)>100
+          </form>
+        </div>
+      </center>
+        <p>Note: The observations are distributed according to a standard normal distribution with correlation r.</p>
+      </div>
+    </div>
+
+      <div id ="halfPageGraphs" style="width 50%; margin-left: 50%; overflow: auto;">
+        <div id="renderTarget"></div>
+      </div>
 
     </body>
 </html>
