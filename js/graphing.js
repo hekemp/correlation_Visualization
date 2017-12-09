@@ -43,7 +43,7 @@ function roundForDisplay(value, decimals){
 var setSampleSize = function(size){
   mySampleSize = size;
   getNewSamples();
-  drawChart2D();
+  drawChart2DWithLine();
 }
 
 var getNewSample = function(){
@@ -152,7 +152,7 @@ function setSliderTicks(){
 
         getNewSamples();
 
-        drawChart2D();
+        drawChart2DWithLine();
 
     }
 
@@ -239,11 +239,83 @@ var drawChart2D = function() {
             pad: 4
           }
   			});
-      console.log("done");
+};
+
+var drawChart2DWithLine = function() {
+
+	    var data = {
+	        x: xValues,
+	        y: yValues,
+	        mode: "markers",
+	        type: "scattergl",
+	        marker: { opacity: 0.7 }
+	    };
+
+			var l = ss.linearRegressionLine({ b: 0, m: myCorrelation })
+
+			console.log(l(10))
+			console.log(l(-10))
+
+			var correctLine = {
+				x: [-10, 10],
+				y: [l(-10), l(10)],
+				mode: 'lines',
+				line: {
+					color: '#FF6000',
+					width: 1
+				},
+				type: "scattergl",
+				name: '',
+			};
+
+			var data2 = [ data, correctLine ];
+
+
+			Plotly.purge("renderTarget")
+
+	    Plotly.newPlot("renderTarget", data2,
+			{
+  				title:'',
+					showlegend: false,
+  				xaxis: {
+  						title: '',
+  						range: [-4, 4],
+  						autotick: false,
+  						ticks: 'outside',
+  						tick0: 0,
+  						dtick: 2,
+  						ticklen: 8,
+  						tickwidth: 0,
+  						tickcolor: '#000'},
+  				yaxis:{
+  						title:'',
+  						range: [-4,4],
+  						autotick: false,
+  						ticks: '',
+  						tick0: 0,
+  						dtick: 2,
+  						ticklen: 8,
+  						tickwidth: 0,
+  						tickcolor: '#000'},
+  				font: {
+  						size: 16,
+  						family: 'Roboto Slab, serif',
+  						color: '#3B317D'},
+          margin: {
+            l: 50,
+            r: 50,
+            b: 50,
+            t: 50,
+            pad: 4
+          }
+  			});
+
+
+
 };
 
 
 $( document ).ready(function() {
     getNewSamples();
-    drawChart2D();
+    drawChart2DWithLine();
 });
